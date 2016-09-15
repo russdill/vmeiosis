@@ -1,0 +1,14 @@
+*.o
+*.hex
+*.elf
+*.bin
+*.pyc
+*.lst
+*.map
+*.swp
+.tmp_sym
+*~
+.d/
+stub-usbdrv.h
+stub/generated/
+stub/archived/

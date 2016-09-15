@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Copyright (C) 2016 Russ Dill <russ.dill@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+while read addr type sym; do
+	[ "$addr" != "U" ] && declare ${sym}="0x${addr}"
+done
+
+pages=$(( ($__data_load_end + $__pagesize - 1) / $__pagesize ))
+case "$1" in
+"start")
+	val=$(( $FLASHEND + 1 - $pages * $__pagesize))
+	;;
+"end")
+	val=$(( $FLASHEND + 1 - ($__end_vectors_end - $__end_vectors)))
+	;;
+"__bl_num_pages")
+	val=$pages
+	;;
+esac
+
+printf "%x\n" $val
