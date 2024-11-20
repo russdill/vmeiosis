@@ -34,6 +34,9 @@
 #define usbFunctionWriteOut __boot_usbFunctionWriteOut
 #define usbFunctionWrite __boot_usbFunctionWrite
 #define usbFunctionRead __boot_usbFunctionRead
+#define usbGenericSetInterrupt __boot_usbGenericSetInterrupt
+#define usbSetInterrupt __boot_usbSetInterrupt
+#define usbSetInterrupt3 __boot_usbSetInterrupt3
 
 #include <usbdrv/archived/boot-usbdrv.h>
 
@@ -43,6 +46,9 @@
 #undef usbFunctionWriteOut
 #undef usbFunctionWrite
 #undef usbFunctionRead
+#undef usbGenericSetInterrupt
+#undef usbSetInterrupt
+#undef usbSetInterrupt3
 
 #ifndef __ASSEMBLER__
 /* These functions link to exported symbols */
@@ -50,6 +56,7 @@ extern void usbPoll(void);
 extern void systemInit(void);
 extern void usbGenericSetInterrupt(uchar *data, uchar len, usbTxStatus_t *txStatus);
 extern void usbSetInterrupt(uchar *data, uchar len);
+extern void usbSetInterrupt3(uchar *data, uchar len);
 extern usbMsgLen_t usbFunctionSetup(uchar data[8]);
 extern uchar usbFunctionWrite(uchar *data, uchar len);
 extern uchar usbFunctionRead(uchar *data, uchar len);

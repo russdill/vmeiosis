@@ -80,3 +80,6 @@ USB_PUBLIC void __attribute__((unused,naked)) __boot_usbFunctionWriteOut(uchar *
 USB_PUBLIC uchar __attribute__((unused,naked,noreturn)) __boot_usbFunctionWrite(uchar *data, uchar len) {}
 USB_PUBLIC uchar __attribute__((unused,naked,noreturn)) __boot_usbFunctionRead(uchar *data, uchar len) {}
 USB_PUBLIC __attribute__((unused,naked,noreturn)) usbMsgLen_t usbCustomDriverDescriptor(struct usbRequest *rq) { }
+USB_PUBLIC void __attribute__((unused,naked)) __boot_usbGenericSetInterrupt(uchar *data, uchar len, usbTxStatus_t *txStatus) {}
+USB_PUBLIC void __attribute__((unused,naked)) __boot_usbSetInterrupt(uchar *data, uchar len) {}
+USB_PUBLIC void __attribute__((unused,naked)) __boot_usbSetInterrupt3(uchar *data, uchar len) {}
