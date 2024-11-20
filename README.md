@@ -19,6 +19,13 @@ Some of the features of vmeiosis:
 * Programming tool that understands avrdude commands.
 * Operation for devices as small as 2KB (attiny25, etc).
 
+For instance, the sizes of a sample HID supporting V-USB firmware:
+
+* Original firmware: 2366 bytes
+* vmeiosis: 1614 bytes
+* Firmware built with vmeiosis: 1100 bytes
+* Total bootloader overhead: 348 bytes
+
 Special thanks to Tim Bo"scke <cpldcpu@gmail.com> for providing the initial
 interrupt free V-USB implementation as well as the robust Micronucleus
 bootloader.
