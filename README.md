@@ -18,6 +18,7 @@ Some of the features of vmeiosis:
 * Resilience against powerloss during programming.
 * Programming tool that understands avrdude commands.
 * Operation for devices as small as 2KB (attiny25, etc).
+* Allows running of "stock" user programs in addition to those modified for vmeiosis.
 
 For instance, the sizes of a sample HID supporting V-USB firmware:
 
@@ -284,6 +285,10 @@ The first to program the embedded EEPROM user program along with the new
 EEPROM values, and the second to program the actual user program.
 should just include the EEPROM values, and the second the actual user
 program.
+
+The `--raw` option can be used to program an image for use without vmeiosis.
+This instructs the `vmedude.py` tool to only modify the reset vector and not
+the USB interrupt vector.
 
 # User Program Build
 

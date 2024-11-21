@@ -329,7 +329,7 @@ def patch_jmp(data, dest, base):
 def patch_reti(data, base):
     data[base:base + 2] = struct.pack('<H', 0x9518)
 
-def patch_firmware(dev, data, flash_range):
+def patch_firmware(dev, data, flash_range, patch_irq=True):
     # Verify user reset handler
     data = bytearray(data)
     if 0 in flash_range or 1 in flash_range:
@@ -347,7 +347,7 @@ def patch_firmware(dev, data, flash_range):
 
     # Check if the user has a handler for the vector v-usb is using
     vector_addr = dev.vector * 2
-    if dev.vector and (vector_addr in flash_range or vector_addr + 1 in flash_range):
+    if patch_irq and dev.vector and (vector_addr in flash_range or vector_addr + 1 in flash_range):
         user_vector = rjmp_to_addr(data, vector_addr)
         if user_vector:
             if flash_start >= user_vector + 2 or flash_end < user_vector:
@@ -416,6 +416,7 @@ parser.add_argument('-C', '--config-file', action='append', help='Specify locati
 parser.add_argument('-e', '--erase', action='store_true', help='Erase flash')
 parser.add_argument('-U', '--mem-op', action='append', type=parse_op, help='Memory operation specification')
 parser.add_argument('-n', '--dry-run', action='store_true', help='Do not write anything to the device')
+parser.add_argument('-R', '--raw', action='store_true', help='Program non-vmeiosis user program (do not patch interrupt vector)')
 options = parser.parse_args()
 
 base_cf = None
@@ -764,7 +765,7 @@ for avr_mems, op, fn, fmt, host_avr_segments in mem_op:
                 raise Exception('Vector page of flash cannot be programmed twice')
             vectors_programmed = True
 
-            patched_flash_mem = patch_firmware(dev, flash_mem, range(flash_start, flash_end))
+            patched_flash_mem = patch_firmware(dev, flash_mem, range(flash_start, flash_end), patch_irq=not options.raw)
             if not erased:
                 dev.erase_device(Progress('  Erasing  '))
                 erased = True
