@@ -6,9 +6,11 @@
 *.lst
 *.map
 *.swp
-.tmp_sym
+.tmp_syms
+config.stamp
 *~
 .d/
-stub-usbdrv.h
-stub/generated/
-stub/archived/
+stub-usbconfig.h
+stub-common.h
+stub/usbdrv/generated/
+stub/usbdrv/archived/
