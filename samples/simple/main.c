@@ -41,7 +41,20 @@ uint8_t usbFunctionSetup(uint8_t data[8])
 
 int main(void)
 {
-	systemInit();
+#if !USB_CFG_USBINIT_CONNECT
+	unsigned char i;
+#endif
+
+	usbInit();
+#if !USB_CFG_USBINIT_CONNECT
+	usbDeviceDisconnect();  /* enforce re-enumeration, do this while interrupts are disabled! */
+	i = 300;
+	while (--i) {             /* fake USB disconnect for > 250 ms */
+		wdt_reset();
+		_delay_ms(1);
+	}
+	usbDeviceConnect();
+#endif
 	sei();
 
 	for (;;) {

@@ -181,9 +181,9 @@ eeprom_program_end:
 #endif
 #endif
 #endif
-.set systemInit, 0x1ff8 + __TEXT_REGION_ORIGIN__
-.type systemInit, @function
-.global systemInit
+.set usbInit, 0x1ff8 + __TEXT_REGION_ORIGIN__
+.type usbInit, @function
+.global usbInit
 .set usbPoll, 0x1ffa + __TEXT_REGION_ORIGIN__
 .type usbPoll, @function
 .global usbPoll

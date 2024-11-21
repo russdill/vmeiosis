@@ -1,7 +1,7 @@
 This is the V-USB hid-mouse example modified for v-usb. Changes made include:
 
-* Swapping out the call to usbInit() and the usbDisconnect()/delay/usbConnect()
-  sequence for a single call to systemInit().
+* Conditionalizing the call to usbDisconnect()/delay/usbConnect() after
+  usbInit(). (This is unconditionally performed by usbInit in vmeiosis).
 * Adding a vendor message to enter bootloader mode which stops updating the
   watchdog.
 * Removing hardware specific definitions from the usbconfig.h.

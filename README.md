@@ -294,11 +294,10 @@ should be included and the `usbdrv.c` and `usbdrvasm.S` files should be built
 and linked. The `usbdrv.c` file can be included directly rather than linked
 and built separately when defining `USB_PUBLIC` as `static`.
 
-Note that in order to reduce code duplication, rather than export `usbInit()`
-vmeiosis exports a `systemInit()` function which itself calls `usbInit()`
-followed by disconnecting from the USB bus, waiting 300ms, and then
-reconnecting. Any user programs must be modified to call `systemInit()` rather
-than `usbInit()`.
+Note that in order to reduce code duplication, vmeiosis utilizes a new
+`USB_CFG_USBINIT_CONNECT` option that adds a forced re-enumeration in
+`usbInit()`. The user program can be modified to remove it's own forced
+re-enumeration within a `#if !USB_CFG_USBINIT_CONNECT` block.
 
 # Internals
 
@@ -316,7 +315,7 @@ callbacks within the user application such as `usbFunctionSetup`,
 bootloader configuration, which is captured within the configuration words.
 
 The bootloader contains a vector table at the end of flash. This vector table
-includes linkage to `systemInit`, `usbPoll`, and the bootloader interrupt
+includes linkage to `usbInit`, `usbPoll`, and the bootloader interrupt
 vector. It also contains a link to the V-USB `usbGenericSetInterrupt` if
 interrupt endpoints are supported within the bootloader configuration. The
 last two bytes of the bootloader vector table are configuration words which

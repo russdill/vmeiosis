@@ -52,8 +52,8 @@
 
 #ifndef __ASSEMBLER__
 /* These functions link to exported symbols */
+extern void usbInit(void);
 extern void usbPoll(void);
-extern void systemInit(void);
 extern void usbGenericSetInterrupt(uchar *data, uchar len, usbTxStatus_t *txStatus);
 extern void usbSetInterrupt(uchar *data, uchar len);
 extern void usbSetInterrupt3(uchar *data, uchar len);

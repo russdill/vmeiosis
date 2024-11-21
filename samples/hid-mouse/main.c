@@ -126,6 +126,10 @@ usbRequest_t    *rq = (void *)data;
 
 int main(void)
 {
+#if !USB_CFG_USBINIT_CONNECT
+uchar   i;
+#endif
+
     wdt_enable(WDTO_1S);
     /* If you don't use the watchdog, replace the call above with a wdt_disable().
      * On newer devices, the status of the watchdog (on/off, period) is PRESERVED
@@ -137,7 +141,16 @@ int main(void)
      */
     odDebugInit();
     DBG1(0x00, 0, 0);       /* debug output: main starts */
-    systemInit();
+    usbInit();
+#if !USB_CFG_USBINIT_CONNECT
+    usbDeviceDisconnect();  /* enforce re-enumeration, do this while interrupts are disabled! */
+    i = 0;
+    while(--i){             /* fake USB disconnect for > 250 ms */
+        wdt_reset();
+        _delay_ms(1);
+    }
+    usbDeviceConnect();
+#endif
     sei();
     DBG1(0x01, 0, 0);       /* debug output: main loop starts */
     for(;;){                /* main event loop */

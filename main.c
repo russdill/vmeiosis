@@ -26,6 +26,7 @@
 
 #include <util/delay.h>
 
+#define usbInit real_usbInit
 #define usbPoll real_usbPoll
 #define usbGenericSetInterrupt real_usbGenericSetInterrupt
 #define usbSetInterrupt real_usbSetInterrupt
@@ -33,6 +34,14 @@
 #include "osc_ver.h"
 #include "usbconfig.h"
 #include "vmeconfig.h"
+
+#if !USB_CFG_USBINIT_CONNECT
+#error vmeiosis requires USB_CFG_USBINIT_CONNECT
+#endif
+
+#if !USB_CFG_MODE_IRQLESS
+#error vmeiosis requires USB_CFG_MODE_IRQLESS
+#endif
 
 /* command system schedules functions to run in the main loop */
 enum {
@@ -62,7 +71,8 @@ enum {
 
 
 #include "usbdesc.c"
-#include "usbdrv/usbdrv.c"
+#include "usbdrv.c"
+#undef usbInit
 #undef usbPoll
 #undef usbGenericSetInterrupt
 #undef usbSetInterrupt
@@ -120,7 +130,13 @@ USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len) __attribute__((unused))
 #endif
 #endif
 
-/* usbPoll is declared static, so we wrap it here to get a symbol for exporting */
+/* usbPoll and usbInit are declared static, so we wrap them here to get symbols
+ * for exporting */
+void usbInit(void)
+{
+	real_usbInit();
+}
+
 void usbPoll(void)
 {
 	real_usbPoll();
@@ -292,36 +308,6 @@ USB_PUBLIC uint8_t usbFunctionSetup(uint8_t data[8])
 	return ret;
 }
 
-/* The stock delay functions go longer than most watchdog timeouts, this is a
- * variant with a watchdog reset */
-static inline void wdr_delay(__uint24 cycles)
-{
-	unsigned short w = cycles;
-	unsigned char d = cycles >> 16;
-	/* 6 cycles per loop, up to 100,663,295 cycles */
-	asm volatile(
-"1:	sbiw %0, 1\n"
-"	sbc %1, __zero_reg__\n"
-"	wdr\n"
-"	brne 1b"
-		: "+w"(w), "+d"(d)
-		:
-		:
-	);
-}
-
-#define wdr_delay_ms(n) wdr_delay((unsigned long long) (n) * F_CPU / (6 * 1000))
-
-void systemInit(void)
-{
-	usbDeviceDisconnect();
-
-	wdr_delay_ms(300);
-
-	usbDeviceConnect();
-	usbInit();
-}
-
 /* Marked vectors to keep close to start of program for brne user_reset */
 void __init(void) __attribute__((naked,noreturn,section(".vectors")));
 void __init(void)
@@ -369,7 +355,7 @@ void __init(void)
 #endif
 
 /* Initialize V-USB */
-"	rcall	systemInit\n"
+"	rcall	usbInit\n"
 
 /* Bootloader main loop */
 "bl_main_loop:\n"

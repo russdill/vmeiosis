@@ -235,6 +235,10 @@ section at the end of this file).
 /* Assign a register to store usbMsgLen. This can save about 12 bytes. Note
  * that enabling this option is not compatible with USB_CFG_LONG_TRANSEFRS.
  */
+ #define USB_CFG_USBINIT_CONNECT        1
+/* define this macro to 1 if you want calls to usbInit to force device
+ * re-enumeration. This is almost always required after usbInit so it can cut
+ * down on boilerplate code. */
 
 /* -------------------------- Device Description --------------------------- */
 

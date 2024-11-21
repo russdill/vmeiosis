@@ -69,7 +69,7 @@ __end_vectors:
 #endif
 #endif
 	bl_vector	USB_INTR_VECTOR /* Used by flashing tool */
-	bl_vector	systemInit
+	bl_vector	usbInit
 	bl_vector	usbPoll
 
 	.word		USB_CFG_WORD_0 + __bl_num_pages
