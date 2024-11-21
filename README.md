@@ -304,6 +304,9 @@ Note that in order to reduce code duplication, vmeiosis utilizes a new
 `usbInit()`. The user program can be modified to remove it's own forced
 re-enumeration within a `#if !USB_CFG_USBINIT_CONNECT` block.
 
+For examples of user programs modified to support vmeiosis see the `samples/`
+directory or the `configs/vme` path from https://github.com/russdill/tinyrf434
+
 # Internals
 
 vmeiosis sits at the end of flash allowing the user program to sit at the head
