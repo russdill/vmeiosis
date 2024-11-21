@@ -1,6 +1,5 @@
 # Config
 CONFIG ?= digispark
-AVRDUDE_OPTS ?= -c flyswatter2
 
 VME_MAJOR = 2
 VME_MINOR = 0
