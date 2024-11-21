@@ -32,7 +32,7 @@ $(error Device too small to support vmeiosis)
 endif
 
 CFLAGS += -ggdb -Os -Wall -Werror
-CFLAGS += -I$(CONFIGPATH) -Iv-usb
+CFLAGS += -I$(CONFIGPATH) -Iv-usb/usbdrv
 CFLAGS += -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 CFLAGS += -DVME_MINOR=$(VME_MINOR) -DVME_MAJOR=$(VME_MAJOR)
 CFLAGS += -fdata-sections -ffunction-sections

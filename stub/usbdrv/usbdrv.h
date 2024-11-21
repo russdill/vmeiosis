@@ -21,9 +21,9 @@
 
 #ifdef __usbconfig_h_included__
 #undef __usbconfig_h_included__
-#include <usbdrv/generated/boot-usbconfig.h>
+#include <generated/boot-usbconfig.h>
 #else
-#include <usbdrv/generated/boot-usbconfig.h>
+#include <generated/boot-usbconfig.h>
 #undef __usbconfig_h_included__
 #endif
 
@@ -38,7 +38,7 @@
 #define usbSetInterrupt __boot_usbSetInterrupt
 #define usbSetInterrupt3 __boot_usbSetInterrupt3
 
-#include <usbdrv/archived/boot-usbdrv.h>
+#include <archived/boot-usbdrv.h>
 
 #undef usbPoll
 #undef usbInit
@@ -62,7 +62,7 @@ extern uchar usbFunctionWrite(uchar *data, uchar len);
 extern uchar usbFunctionRead(uchar *data, uchar len);
 extern void usbFunctionWriteOut(uchar *data, uchar len);
 
-#include <usbdrv/generated/boot-syms.c>
+#include <generated/boot-syms.c>
 
 #endif
 

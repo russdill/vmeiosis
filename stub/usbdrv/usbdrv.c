@@ -19,8 +19,8 @@
 #include <avr/wdt.h>
 #include <avr/signature.h>
 
-#include <usbdrv/usbdrv.h>
-#include <usbdrv/archived/usbdesc.c>
+#include <usbdrv.h>
+#include <archived/usbdesc.c>
 
 #ifdef USB_RESET_HOOK
 static void __usbResetHook(uchar isReset)

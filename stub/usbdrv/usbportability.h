@@ -20,6 +20,6 @@
 #ifdef __usbportability_h_included__
 #undef __usbportability_h_included__
 #endif
-#include <usbdrv/archived/boot-usbportability.h>
+#include <archived/boot-usbportability.h>
 
 #endif /* __usbportability_h_included__ */

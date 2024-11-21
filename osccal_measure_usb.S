@@ -18,7 +18,7 @@
 #define __SFR_OFFSET 0
 
 #include <avr/io.h>
-#include "usbdrv/usbdrv.h"
+#include "usbdrv.h"
 #include "div.h"
 
 /*

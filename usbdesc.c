@@ -26,7 +26,7 @@
 
 #include <avr/pgmspace.h>
 
-#include <usbdrv/usbdrv.h>
+#include <usbdrv.h>
 #include "usbdesc.h"
 
 #if USB_CFG_SUPPRESS_INTRIN_ENDPOINTS

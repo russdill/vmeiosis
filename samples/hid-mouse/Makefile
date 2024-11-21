@@ -1,7 +1,6 @@
-MEIOSIS_PATH=../..
-VUSB_INC=$(MEIOSIS_PATH)/stub
-VMEDUDE = $(MEIOSIS_PATH)/scripts/vmedude.py
-VPATH = $(VUSB_INC)/usbdrv
+MEIOSIS_PATH = ../..
+VUSB_INC = $(MEIOSIS_PATH)/stub/usbdrv
+VPATH = $(VUSB_INC)
 
 PROJECT = hid-mouse
 
@@ -12,15 +11,16 @@ CC = $(CROSS_COMPILE)gcc
 CPP = $(CROSS_COMPILE)cpp
 NM = $(CROSS_COMPILE)nm
 OBJCOPY = $(CROSS_COMPILE)objcopy
+VMEDUDE = $(MEIOSIS_PATH)/scripts/vmedude.py
 
-DEVICE = $(shell echo DEVICE | $(CPP) -I$(VUSB_INC)/usbdrv -include generated/boot-usbconfig.h -P)
-F_CPU = $(shell echo F_CPU | $(CPP) -I$(VUSB_INC)/usbdrv -include generated/boot-usbconfig.h -P)
+DEVICE = $(shell echo DEVICE | $(CPP) -I$(VUSB_INC) -include generated/boot-usbconfig.h -P)
+F_CPU = $(shell echo F_CPU | $(CPP) -I$(VUSB_INC) -include generated/boot-usbconfig.h -P)
 USB_PUBLIC = $(shell echo USB_PUBLIC | $(CPP) -include usbconfig.h -P)
 
 # Options:
 CFLAGS +=  -g2 -Os -Wall -Werror
 CFLAGS += -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
-CFLAGS += -I$(VUSB_INC)/usbdrv -I$(VUSB_INC) -I.
+CFLAGS += -I$(VUSB_INC) -I.
 CFLAGS += -fdata-sections -ffunction-sections
 CFLAGS += -fno-inline-small-functions -fno-move-loop-invariants -fno-tree-scev-cprop
 CFLAGS += -fpack-struct

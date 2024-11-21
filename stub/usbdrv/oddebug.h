@@ -20,6 +20,6 @@
 #ifdef __oddebug_h_included__
 #undef __oddebug_h_included__
 #endif
-#include <usbdrv/archived/boot-oddebug.h>
+#include <archived/boot-oddebug.h>
 
 #endif /* __oddebug_h_included__ */

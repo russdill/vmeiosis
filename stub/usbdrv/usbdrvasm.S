@@ -16,8 +16,8 @@
  */
 
 #define __SFR_OFFSET 0      /* used by avr-libc's register definitions */
-#include <usbdrv/usbportability.h>
-#include <usbdrv/usbdrv.h>         /* for common defs */
+#include <usbportability.h>
+#include <usbdrv.h>         /* for common defs */
 
 #ifndef EEWE
 #define EEWE EEPE

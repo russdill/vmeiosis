@@ -27,7 +27,7 @@ __bl_\name:
 	.skip 2
 	.endm
 
-#include "usbdrv/usbdrv.h"
+#include "usbdrv.h"
 #include "pagesize.h"
 #include "configuration.h"
 
