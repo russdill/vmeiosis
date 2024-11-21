@@ -16,10 +16,12 @@ OBJCOPY = $(CROSS_COMPILE)objcopy
 AVRDUDE = avrdude $(AVRDUDE_OPTS) -p $(DEVICE)
 VMEDUDE = ./scripts/vmedude.py
 
-DEVICE = $(shell echo DEVICE | $(CPP) -I$(CONFIGPATH) -include vmeconfig.h -P)
-F_CPU = $(shell echo F_CPU | $(CPP) -I$(CONFIGPATH) -include vmeconfig.h -P)
-FUSEOPTS = $(shell echo FUSEOPTS | $(CPP) -I$(CONFIGPATH) -include vmeconfig.h -P)
-FLASHEND = $(shell echo FLASHEND | $(CPP) -mmcu=$(DEVICE) -D__ASSEMBLER__ -include avr/io.h -P)
+cpp_var = $(shell echo $1 | $(CPP) -Iv-usb/usbdrv -I$(CONFIGPATH) $2 -include usbdrv.h -P 2>/dev/null | tail -n 1)
+DEVICE := $(call cpp_var,DEVICE)
+F_CPU := $(call cpp_var,F_CPU)
+USB_PUBLIC := $(call cpp_var,USB_PUBLIC)
+FUSEOPTS := $(call cpp_var,FUSEOPTS,-mmcu=$(DEVICE))
+FLASHEND := $(call cpp_var,FLASHEND,-mmcu=$(DEVICE))
 
 # We choose targets based on available flash size. This may need massaging
 # if you optimize or bloat v-usb

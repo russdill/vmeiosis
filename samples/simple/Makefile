@@ -13,9 +13,10 @@ NM = $(CROSS_COMPILE)nm
 OBJCOPY = $(CROSS_COMPILE)objcopy
 VMEDUDE = $(MEIOSIS_PATH)/scripts/vmedude.py
 
-DEVICE = $(shell echo DEVICE | $(CPP) -I$(VUSB_INC) -include generated/boot-usbconfig.h -P)
-F_CPU = $(shell echo F_CPU | $(CPP) -I$(VUSB_INC) -include generated/boot-usbconfig.h -P)
-USB_PUBLIC = $(shell echo USB_PUBLIC | $(CPP) -include usbconfig.h -P)
+cpp_var = $(shell echo $1 | $(CPP) -I$(VUSB_INC) -I. $2 -include usbdrv.h -P 2>/dev/null | tail -n 1)
+DEVICE := $(call cpp_var,DEVICE)
+F_CPU := $(call cpp_var,F_CPU)
+USB_PUBLIC := $(call cpp_var,USB_PUBLIC)
 
 # Options:
 CFLAGS +=  -g2 -Os -Wall -Werror
