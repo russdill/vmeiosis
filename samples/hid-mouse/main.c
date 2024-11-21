@@ -116,8 +116,10 @@ usbRequest_t    *rq = (void *)data;
         }else if(rq->bRequest == USBRQ_HID_SET_IDLE){
             idleRate = rq->wValue.bytes[1];
         }
+#if VUSB_USING_VME
     }else if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_VENDOR){
         force_wdr = 1;
+#endif
     }
     return 0;   /* default for not implemented requests: return no data back to host */
 }

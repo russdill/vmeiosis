@@ -31,11 +31,12 @@ uint8_t usbFunctionSetup(uint8_t data[8])
 {
 	usbRequest_t *rq = (void *) data;
 
+#if VUSB_USING_VME
 	if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_VENDOR) {
 		wdt_enable(0);
 	 	force_wdr = 1;
 	}
-
+#endif
 	return 0;
 }
 

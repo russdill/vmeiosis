@@ -17,7 +17,7 @@
 
 #ifndef __usbdrv_h_included__
 
-#define USB_USER_PROGRAM 1
+#define VUSB_USING_VME 1
 
 #ifdef __usbconfig_h_included__
 #undef __usbconfig_h_included__
