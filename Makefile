@@ -38,7 +38,7 @@ CFLAGS += -mmcu=$(DEVICE) -DF_CPU=$(F_CPU)
 CFLAGS += -DVME_MINOR=$(VME_MINOR) -DVME_MAJOR=$(VME_MAJOR)
 CFLAGS += -fdata-sections -ffunction-sections
 CFLAGS += -fno-inline-small-functions -fno-move-loop-invariants -fno-tree-scev-cprop
-CFLAGS += -fpack-struct
+CFLAGS += -fpack-struct -fno-jump-tables
 
 LDFLAGS += -Wl,--relax
 
