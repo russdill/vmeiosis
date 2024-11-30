@@ -130,6 +130,11 @@ USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len) __attribute__((unused))
 #endif
 #endif
 
+USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(usbRequest_t *rq)
+{
+	return 0;
+}
+
 /* usbPoll and usbInit are declared static, so we wrap them here to get symbols
  * for exporting */
 void usbInit(void)

@@ -79,18 +79,6 @@
 #define USB_CFG_IS_DNYNAMIC_HID_FLAGS (0)
 #endif
 
-#if (USB_CFG_DESCR_PROPS_DEVICE | USB_CFG_DESCR_PROPS_CONFIGURATION | \
-       USB_CFG_DESCR_PROPS_STRINGS | USB_CFG_DESCR_PROPS_STRING_0 | \
-       USB_CFG_DESCR_PROPS_STRING_VENDOR | \
-       USB_CFG_DESCR_PROPS_STRING_PRODUCT | \
-       USB_CFG_DESCR_PROPS_STRING_SERIAL_NUMBER | \
-       USB_CFG_DESCR_PROPS_UNKNOWN | \
-       USB_CFG_IS_DYNAMIC_HID_FLAGS) & USB_PROP_IS_DYNAMIC
-#else
-USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) { return 0; }
-#endif
-
-
 /* We use if() instead of #if in the macro below because #if can't be used
  * in macros and the compiler optimizes constant conditions anyway.
  * This may cause problems with undefined symbols if compiled without
