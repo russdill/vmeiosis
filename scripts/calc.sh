@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 while read addr type sym; do
-	[ "$addr" != "U" ] && declare ${sym}="0x${addr}"
+	[ "$addr" != "U" -a ${sym:0:1} != "." -a ${sym:0:2} != "L0" ] && declare ${sym}="0x${addr}"
 done
 
 pages=$(( ($__data_load_end + $__pagesize - 1) / $__pagesize ))
