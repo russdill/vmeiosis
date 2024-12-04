@@ -19,7 +19,7 @@ cpp_var = $(shell echo $1 | $(CPP) -Iv-usb/usbdrv -I$(CONFIGPATH) $2 -include us
 DEVICE := $(call cpp_var,DEVICE)
 F_CPU := $(call cpp_var,F_CPU)
 USB_PUBLIC := $(call cpp_var,USB_PUBLIC)
-FUSEOPTS := $(call cpp_var,FUSEOPTS,-mmcu=$(DEVICE))
+FUSEOPT := $(call cpp_var,FUSEOPT,-mmcu=$(DEVICE))
 FLASHEND := $(call cpp_var,FLASHEND,-mmcu=$(DEVICE))
 
 # We choose targets based on available flash size. This may need massaging
