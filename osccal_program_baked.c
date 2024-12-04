@@ -108,7 +108,7 @@ void osccal_program(unsigned char osccal)
 	 * vector points to osccal rather than the bootloader. Update it to
 	 * point to the bootloader instead.
 	 */
-	offset = ((offset - FLASHEND - 1) / 2) & 0xfff;
+	offset = ((offset - 0x2000 - 2) / 2) & 0xfff;
 	boot_page_fill(0, 0xc000 | offset); /* rjmp */
 	wdt_reset();
 	boot_page_erase(0);
